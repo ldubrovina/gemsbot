@@ -1,9 +1,9 @@
 # Этап сборки
 FROM python:3.12.3-slim-bookworm AS builder
 
-# Настройка apt для использования российских зеркал
-RUN sed -i 's/deb.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list && \
-  sed -i 's/security.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list
+# Настройка apt и репозиториев
+RUN echo "deb http://mirror.yandex.ru/debian/ bookworm main contrib non-free" > /etc/apt/sources.list && \
+  echo "deb http://mirror.yandex.ru/debian-security/ bookworm-security main contrib non-free" >> /etc/apt/sources.list
 
 # Установка build-time зависимостей с повторными попытками
 RUN for i in $(seq 1 3); do \
@@ -31,9 +31,9 @@ FROM python:3.12.3-slim-bookworm
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Настройка apt для использования российских зеркал
-RUN sed -i 's/deb.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list && \
-  sed -i 's/security.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list
+# Настройка apt и репозиториев
+RUN echo "deb http://mirror.yandex.ru/debian/ bookworm main contrib non-free" > /etc/apt/sources.list && \
+  echo "deb http://mirror.yandex.ru/debian-security/ bookworm-security main contrib non-free" >> /etc/apt/sources.list
 
 # Установка системных зависимостей с повторными попытками
 RUN for i in $(seq 1 3); do \
