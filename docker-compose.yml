@@ -30,7 +30,7 @@ services:
         reservations:
           cpus: "0.25"
           memory: 512M
-    user: "nobody:nogroup" # Запускаем от непривилегированного пользователя
+    user: "nobody:nogroup"
     volumes:
       # Для хранения данных SQLite
       - type: bind
@@ -45,12 +45,6 @@ services:
       - type: bind
         source: ./settings_default.json
         target: /app/settings_default.json
-        read_only: true
-
-      # Для игровых ассетов
-      - type: bind
-        source: ./game_assets
-        target: /app/game_assets
         read_only: true
 
       # Для логов

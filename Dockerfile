@@ -60,8 +60,9 @@ RUN mkdir -p /etc/ImageMagick-6 && \
 # Создание и переход в рабочую директорию
 WORKDIR /app
 
-# Копируем конфигурационные файлы
+# Копируем конфигурационные файлы и ассеты
 COPY settings.json settings_default.json ./
+COPY game_assets/ ./game_assets/
 
 # Копируем исходный код
 COPY bot.py init_db.py ./
@@ -73,8 +74,10 @@ COPY templates/ ./templates/
 COPY *.py ./
 
 # Создаем необходимые директории и настраиваем разрешения
-RUN mkdir -p /app/data /app/logs /app/game_assets && \
+RUN mkdir -p /app/data /app/logs && \
   chmod 644 /app/settings*.json && \
+  chmod -R 644 /app/game_assets/* && \
+  chmod 755 /app/game_assets && \
   chown -R nobody:nogroup /app/data /app/logs
 
 # Задаем переменные окружения
