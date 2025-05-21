@@ -1,0 +1,29 @@
+{
+  "pEconomyModel": {
+    "CampaignTaskSkipCost": {},
+    "WeaponReleaseDates": [],
+    "RoomReleaseDates": [],
+    "ChaosOrbChances": [],
+    "MajorChaosOrbChances": [],
+    "KingdomLevelData": {},
+    "FactionRenownRewardPetIds": {},
+    "Explore_RunePerKingdom": {},
+    "Rune_AfterBattleKingdomData": {}
+  },
+  "pTasksData": {
+    "CampaignTasks": {},
+    "CampaignRerollTasks": {}
+  },
+  "ChestInfo": {
+    "3": {
+      "DisplayTroopIds": [],
+      "KingdomId": null
+    }
+  },
+  "BasicLiveEventArray": [],
+  "pGemEventData": [],
+  "pFeatures": {
+    "TreasureHoardPotions": [],
+    "TreasureHoardPotionData": {}
+  }
+}
