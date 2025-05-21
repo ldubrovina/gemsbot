@@ -60,8 +60,11 @@ RUN mkdir -p /etc/ImageMagick-6 && \
 # Создание и переход в рабочую директорию
 WORKDIR /app
 
-# Копируем файлы настроек и основные файлы приложения
-COPY bot.py init_db.py settings.json settings_default.json ./
+# Копируем конфигурационные файлы
+COPY settings.json settings_default.json ./
+
+# Копируем исходный код
+COPY bot.py init_db.py ./
 COPY data_source/ ./data_source/
 COPY game_constants/ ./game_constants/
 COPY jobs/ ./jobs/
@@ -82,8 +85,15 @@ LABEL maintainer="ldubrovina" \
   description="GoW Discord Bot" \
   version="1.0"
 
-# Создаем entrypoint файл
+# Создаем entrypoint файл с проверкой наличия файлов
 RUN echo '#!/bin/sh' > /app/entrypoint.sh && \
+  echo 'echo "Checking required files..."' >> /app/entrypoint.sh && \
+  echo 'ls -la /app/game_assets/' >> /app/entrypoint.sh && \
+  echo 'if [ ! -f "/app/game_assets/GemsOfWar_English.json" ]; then' >> /app/entrypoint.sh && \
+  echo '    echo "ERROR: Required file GemsOfWar_English.json not found!"' >> /app/entrypoint.sh && \
+  echo '    exit 1' >> /app/entrypoint.sh && \
+  echo 'fi' >> /app/entrypoint.sh && \
+  echo 'echo "Starting bot..."' >> /app/entrypoint.sh && \
   echo 'python init_db.py' >> /app/entrypoint.sh && \
   echo 'exec python bot.py' >> /app/entrypoint.sh && \
   chmod +x /app/entrypoint.sh

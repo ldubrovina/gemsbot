@@ -30,16 +30,33 @@ services:
         reservations:
           cpus: "0.25"
           memory: 512M
+    user: "nobody:nogroup" # Запускаем от непривилегированного пользователя
     volumes:
       # Для хранения данных SQLite
-      - ./data:/app/data
+      - type: bind
+        source: ./data
+        target: /app/data
+
       # Для файлов конфигурации
-      - ./settings.json:/app/settings.json:ro
-      - ./settings_default.json:/app/settings_default.json:ro
+      - type: bind
+        source: ./settings.json
+        target: /app/settings.json
+        read_only: true
+      - type: bind
+        source: ./settings_default.json
+        target: /app/settings_default.json
+        read_only: true
+
       # Для игровых ассетов
-      - ./game_assets:/app/game_assets:ro
+      - type: bind
+        source: ./game_assets
+        target: /app/game_assets
+        read_only: true
+
       # Для логов
-      - ./logs:/app/logs
+      - type: bind
+        source: ./logs
+        target: /app/logs
     labels:
       - "com.docker.compose.project=gowbot"
       - "com.docker.compose.service=bot"
