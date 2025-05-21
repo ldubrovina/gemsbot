@@ -767,22 +767,30 @@ class DiscordBot(BaseBot):
         e = discord.Embed(title=title, color=color)
         e.add_field(name=name, value=value)
         return e
-
     async def team_code(self, message, lang, team_code=None, shortened=False, lengthened=False, **kwargs):
         """Показывает информацию о команде по коду."""
         log.debug(f"Team code method called with code: {team_code}, lang: {lang}")
 
-        # Если это interaction, сразу откладываем ответ
-        if hasattr(message, 'interaction'):
-            await message.interaction.response.defer()
-
-        if not team_code:
-            log.debug('No team code provided')
-            error_message = 'Не указан код команды'
+        try:
+            # Если это interaction, сразу откладываем ответ
             if hasattr(message, 'interaction'):
-                await message.interaction.followup.send(error_message, ephemeral=True)
+                await message.interaction.response.defer(thinking=True)
+                log.debug("Deferred interaction response")
+
+            if not team_code:
+                log.debug('No team code provided')
+                error_message = 'Не указан код команды'
+                if hasattr(message, 'interaction'):
+                    await message.interaction.followup.send(error_message, ephemeral=True)
+                else:
+                    await message.channel.send(error_message)
+                return
+        except Exception as e:
+            log.error(f"Error in team_code initial processing: {e}")
+            if hasattr(message, 'interaction'):
+                await message.interaction.response.send_message("Произошла ошибка при обработке команды", ephemeral=True)
             else:
-                await message.channel.send(error_message)
+                await message.channel.send("Произошла ошибка при обработке команды")
             return
 
         # Обработка кода команды
@@ -812,27 +820,48 @@ class DiscordBot(BaseBot):
 
         # Сохраняем оригинальный код команды для отображения
         team["team_code"] = team_code
-        log.debug(f'Added team code to context: {team_code}')
-
-        # Создание ответа
+        log.debug(f'Added team code to context: {team_code}')        # Создание ответа
         try:
             author = message.author.display_name if hasattr(message, 'author') else "Unknown"
             title = kwargs.get('title', '')[:256]
-            e = self.views.render_team(team, author, shortened, lengthened, title=title)
 
-            # Отправка ответа
-            if hasattr(message, 'interaction'):
-                await message.interaction.followup.send(embed=e)
-            else:
-                await self.answer(message, e)
+            log.debug("Rendering team data...")
+            e = self.views.render_team(team, author, shortened, lengthened, title=title)
+            log.debug("Team data rendered successfully")            # Отправка ответа
+            try:
+                if hasattr(message, 'interaction'):
+                    log.debug("Sending followup response for interaction...")
+                    await message.interaction.followup.send(embed=e)
+                    log.debug("Followup response sent successfully")
+                else:
+                    log.debug("Sending regular message response...")
+                    await self.answer(message, e)
+                    log.debug("Regular message response sent successfully")
+            except Exception as exc:
+                log.error(f"Error sending team code response: {exc}")
+                try:
+                    if hasattr(message, 'interaction'):
+                        await message.interaction.followup.send("Произошла ошибка при отправке ответа", ephemeral=True)
+                    else:
+                        await message.channel.send("Произошла ошибка при отправке ответа")
+                except:
+                    log.error("Failed to send error message")
 
         except Exception as ex:
-            log.error(f"Error in team_code: {ex}")
+            log.error(f"Error in team_code final processing: {ex}")
             error_message = "Произошла ошибка при обработке команды."
-            if hasattr(message, 'interaction'):
-                await message.interaction.followup.send(error_message, ephemeral=True)
-            else:
-                await message.channel.send(error_message)
+            try:
+                if hasattr(message, 'interaction'):
+                    await message.interaction.followup.send(error_message, ephemeral=True)
+                else:
+                    await message.channel.send(error_message)
+            except Exception as e:
+                log.error(f"Error sending error message: {e}")
+                # Пытаемся отправить сообщение в канал как последнюю попытку
+                try:
+                    await message.channel.send("Произошла критическая ошибка при обработке команды")
+                except Exception as final_e:
+                    log.error(f"Critical error: Failed to send any response: {final_e}")
 
     tc = team_code
 
