@@ -9,7 +9,11 @@ __pycache__
 /fonts/
 /.cache/
 
+# Игнорируем World.json, но разрешаем его шаблон
+game_assets/World.json
+
 # Разрешаем определенные JSON файлы
 !game_assets/*.json
+!game_assets/World.json.template
 !settings.json
 !settings_default.json
