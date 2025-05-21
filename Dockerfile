@@ -60,8 +60,8 @@ RUN mkdir -p /etc/ImageMagick-6 && \
 # Создание и переход в рабочую директорию
 WORKDIR /app
 
-# Копируем только необходимые файлы
-COPY bot.py init_db.py ./
+# Копируем файлы настроек и основные файлы приложения
+COPY bot.py init_db.py settings.json settings_default.json ./
 COPY data_source/ ./data_source/
 COPY game_constants/ ./game_constants/
 COPY jobs/ ./jobs/
@@ -69,8 +69,10 @@ COPY models/ ./models/
 COPY templates/ ./templates/
 COPY *.py ./
 
-# Создаем необходимые директории
-RUN mkdir -p /app/data /app/logs /app/game_assets
+# Создаем необходимые директории и настраиваем разрешения
+RUN mkdir -p /app/data /app/logs /app/game_assets && \
+  chmod 644 /app/settings*.json && \
+  chown -R nobody:nogroup /app/data /app/logs
 
 # Задаем переменные окружения
 ENV PYTHONUNBUFFERED=1
