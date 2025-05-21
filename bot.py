@@ -772,11 +772,15 @@ class DiscordBot(BaseBot):
         """Показывает информацию о команде по коду."""
         log.debug(f"Team code method called with code: {team_code}, lang: {lang}")
 
+        # Если это interaction, сразу откладываем ответ
+        if hasattr(message, 'interaction'):
+            await message.interaction.response.defer()
+
         if not team_code:
             log.debug('No team code provided')
             error_message = 'Не указан код команды'
             if hasattr(message, 'interaction'):
-                await message.interaction.response.send_message(error_message, ephemeral=True)
+                await message.interaction.followup.send(error_message, ephemeral=True)
             else:
                 await message.channel.send(error_message)
             return
@@ -801,7 +805,7 @@ class DiscordBot(BaseBot):
             log.debug(f'No team found for code: {team_code}')
             error_message = f'Не удалось найти команду по коду: `{raw_team_code}`'
             if hasattr(message, 'interaction'):
-                await message.interaction.response.send_message(error_message, ephemeral=True)
+                await message.interaction.followup.send(error_message, ephemeral=True)
             else:
                 await message.channel.send(error_message)
             return
@@ -818,7 +822,7 @@ class DiscordBot(BaseBot):
 
             # Отправка ответа
             if hasattr(message, 'interaction'):
-                await message.interaction.response.send_message(embed=e)
+                await message.interaction.followup.send(embed=e)
             else:
                 await self.answer(message, e)
 
@@ -826,7 +830,7 @@ class DiscordBot(BaseBot):
             log.error(f"Error in team_code: {ex}")
             error_message = "Произошла ошибка при обработке команды."
             if hasattr(message, 'interaction'):
-                await message.interaction.response.send_message(error_message, ephemeral=True)
+                await message.interaction.followup.send(error_message, ephemeral=True)
             else:
                 await message.channel.send(error_message)
 
