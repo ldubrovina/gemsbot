@@ -49,5 +49,4 @@ ENV/
 *.log
 
 # Docker
-Dockerfile
 .dockerignore
