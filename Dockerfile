@@ -1,12 +1,20 @@
 # Этап сборки
 FROM python:3.12.3-slim-bookworm AS builder
 
+# Настройка apt для использования российских зеркал
+RUN sed -i 's/deb.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list && \
+  sed -i 's/security.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list
+
 # Установка build-time зависимостей с повторными попытками
-RUN apt-get update -y && \
+RUN for i in $(seq 1 3); do \
+  apt-get clean && \
+  apt-get update -o Acquire::http::Timeout=240 -y && \
   apt-get install -y --no-install-recommends \
   gcc \
   python3-dev && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* && break || \
+  if [ $i -lt 3 ]; then sleep 15; fi; \
+  done
 
 # Создание и активация виртуального окружения
 RUN python -m venv /opt/venv
@@ -23,16 +31,21 @@ FROM python:3.12.3-slim-bookworm
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Установка системных зависимостей с повторными попытками и увеличенным таймаутом
+# Настройка apt для использования российских зеркал
+RUN sed -i 's/deb.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list && \
+  sed -i 's/security.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list
+
+# Установка системных зависимостей с повторными попытками
 RUN for i in $(seq 1 3); do \
-  apt-get update -y --timeout=60 && \
+  apt-get clean && \
+  apt-get update -o Acquire::http::Timeout=240 -y && \
   apt-get install -y --no-install-recommends \
   ca-certificates \
   curl \
   imagemagick \
   libmagickwand-dev && \
   rm -rf /var/lib/apt/lists/* && break || \
-  if [ $i -lt 3 ]; then sleep 10; fi; \
+  if [ $i -lt 3 ]; then sleep 15; fi; \
   done
 
 # Настройка политик ImageMagick
