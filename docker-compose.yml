@@ -2,18 +2,45 @@ version: "3.8"
 
 services:
   bot:
-    build: .
+    build:
+      context: .
+      shm_size: "2gb"
     container_name: gowbot
     restart: unless-stopped
+    stop_grace_period: 30s
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import requests; requests.get('http://localhost:8080')",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - PYTHONUNBUFFERED=1
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 512M
     volumes:
       # Для хранения данных SQLite
-      - ./data:/app/data # Для файлов конфигурации
+      - ./data:/app/data
+      # Для файлов конфигурации
       - ./settings.json:/app/settings.json:ro
       - ./settings_default.json:/app/settings_default.json:ro
       # Для игровых ассетов
       - ./game_assets:/app/game_assets:ro
       # Для логов
       - ./logs:/app/logs
+    labels:
+      - "com.docker.compose.project=gowbot"
+      - "com.docker.compose.service=bot"
+      - "maintainer=ldubrovina"
