@@ -2,11 +2,9 @@ FROM python:3.12.3-slim-bookworm
 
 # Установка системных зависимостей
 RUN apt-get update && \
-  apt-get upgrade -y && \
   apt-get install -y --no-install-recommends \
   imagemagick \
-  && apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/*
 
 # Создание и переход в рабочую директорию
 WORKDIR /app
