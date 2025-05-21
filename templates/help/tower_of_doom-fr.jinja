@@ -1,0 +1,27 @@
+<T>__Bases__</T>
+Les utilisateurs peuvent utiliser la commande `{{ prefix }}tower` pour ajouter des informations sur les parchemins de la tour maudite,
+puis les afficher pour dans un visuel facile. **Chaque Tour est spécifique au salon dans lequel l'information est saisie.**.
+<T>__Saisie des données__</T>
+Pour saisir les données, utilisez la commande `{{ prefix }}tower`. Des noms abrégés ou des alias peuvent être utilisés.
+`{{ prefix }}tower 4 ii unlock`
+`{{ prefix }}tower 5 rare fi`
+Vous pouvez saisir un étage entier sur une seule ligne:
+`{{ prefix }}tower 6 armor fireball unlock haste`
+
+<T>__Affichage des données__</T>
+Pour afficher les données, utilisez simplement la commande `{{ prefix }}tower` sans aucun argument.
+Pour une sélection d'étages, allant de _inférieur_ à _supérieur_, utilisez `{{ prefix }}tower <inférieur>-<supérieur>`, ex. `{{ prefix }}tower 20-30`.
+
+<T>__Effacement des données__</T>
+Pour effacer les données de la tour, utilisez simplement la commande `{{ prefix }}towerclear` sans aucun argument.
+
+<T>__Importing from Taran's DoomMap__</T>
+`{{ prefix }}tower taran <map name>`
+
+<T>__Configuration__</T>
+Pour configurer l'utilitaire de la tour, utilisez `{{ prefix }}towerconfig`.
+`{{ prefix }}towerconfig short true` pour la saisie de réponses raccourcies.
+`{{ prefix }}towerconfig rooms iii iii,rare,green` pour définir les alias des pièces.
+Valeurs séparées par des virgules.
+`{{ prefix }}towerconfig scrolls armor :shield:,Armor` pour définir des alias pour des parchemins.
+La première valeur sera utilisée pour l'affichage.

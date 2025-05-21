@@ -1,0 +1,20 @@
+[{{ team.code }}]
+
+{% for troop in team.troops %}
+{{ troop.raw_rarity|emoji }} {{ troop.color_emoji }} **{{ troop.name }}** {% if 'affixes' in troop %}{{ troop.weapon_emoji }}{% endif %}
+{%- endfor %}
+
+{%- if team.class %}
+**{{ team.class_title }}: {{ team.class }}**
+{% set talents = team.talents|join('-') %}
+{%- if talents|replace('-', '') != '' %}
+{{ team.talents|join(', ') }}
+{%- endif %}
+{%- endif -%}
+
+{%- if team.banner %}
+**{{ team.banner.name }}**
+{{ team.banner.kingdom }} {%- for color in team.banner|banner_colors %}
+{{ color }}
+{%- endfor -%}
+{%- endif -%}

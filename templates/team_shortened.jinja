@@ -1,0 +1,14 @@
+{%- if team.banner -%}
+<T>**{{ team.banner.name }}**</T>
+{{ team.banner|banner_colors|join(' ') }}
+{%- endif -%}
+
+{%- if team.class %}
+<T>{{ team.class_title }}: {{ team.class }}</T>
+{%- if team.talents -%}
+{% set talents = team.talents|join('-') %}
+{%- if talents|replace('-', '') != '' %}
+{{ team.talents|join(', ') }}
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}

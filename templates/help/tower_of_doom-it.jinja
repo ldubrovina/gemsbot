@@ -1,0 +1,27 @@
+<T>__Basics__</T>
+Gli utenti possono utilizzare il comando `{{ prefix }}tower` per inserire i dati delle pergamene nella Torre della Sventura, 
+per poi visualizzarli in maniera più chiara. **Ogni Torre è specifica per il canale in cui viene eseguito il comando all'interno**.
+<T>__Entering Data__</T>
+Per inseire i dati, usa il comando `{{ prefix }}tower`. Si possono usare nomi abbreviati o alias.
+`{{ prefix }}tower 4 ii unlock`
+`{{ prefix }}tower 5 rare fi`
+Puoi impostare un intero piano in una sola riga:
+`{{ prefix }}tower 6 armor fireball unlock haste`
+
+<T>__Displaying Data__</T>
+Per mostrare tutti i dati, usa semplicemente il comando `{{ prefix }}tower` senza argomenti.
+Per selezionare un intervallo di stanze, comprese da un piano all'altro, usa il comando `{{ prefix }}tower <lower>-<upper>`, es. `{{ prefix }}tower 20-30`.
+
+<T>__Clearing Data__</T>
+Per eliminare tutti i dati della Torre, use semplicemente il comando `{{ prefix }}towerclear` senza argomenti.
+
+<T>__Importing from Taran's DoomMap__</T>
+`{{ prefix }}tower taran <map name>`
+
+<T>__Configuration__</T>
+Per mostrare la configurazione dell'utility della Torre, usa `{{ prefix }}towerconfig`.
+`{{ prefix }}towerconfig short true` per brevi risposte alle modifiche.
+`{{ prefix }}towerconfig rooms iii iii,rara,verde` per impostare alias delle stanze.
+Valori separati dalle virgole.
+`{{ prefix }}towerconfig scrolls armor :shield:,Armatura` per impostare alias delle pergamene. 
+La prima voce è quella visualizzata.

@@ -1,0 +1,28 @@
+{
+  "graphics_url": "https://garyatrics.com/gow_assets",
+  "base_guilds": [
+    733761045386231891,
+    780892751796764683,
+    932188602354524240,
+    932189595938988052,
+    1074274947544911932
+  ],
+  "default_prefix": "!",
+  "default_language": "en",
+  "default_news_platform": "pc",
+  "news_check_interval_minutes": 5,
+  "game_assets_folder": "game_assets",
+  "database": "db.sqlite3",
+  "file_update_check_seconds": 10,
+  "deregister_slash_commands": false,
+  "register_slash_commands": true,
+  "slash_command_guild_id": null,
+  "special_users": [],
+  "data_shift_hours": 0,
+  "taran_token": "",
+  "special_users_only": false,
+  "request_messages_content_intent": false,
+  "ntfy_host": null,
+  "ntfy_user": null,
+  "ntfy_pass": null
+}

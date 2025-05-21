@@ -1,0 +1,23 @@
+<T>inline**{{ team.troops_title }}**</T>
+{%- for troop in team.troops %}
+{{ troop.color_emoji }} {{ troop.name }}{% if 'affixes' in troop %}{{ troop.weapon_emoji }}{% endif %}
+{%- endfor -%}
+
+{%- if team.banner %}
+<T>inline**{{ team.banner.name }}**</T>
+{{ team.banner.kingdom }}{% if not team.banner|banner_colors %}{{ team.banner.available }}{% endif %}{%- for color in team.banner|banner_colors %}
+{{ color }}
+{%- endfor -%}
+{% endif %}
+{%- if team.class %}
+<T>{{ team.class_title }}: {{ team.class }}</T>
+{% set talents = team.talents|join('-') %}
+{% if talents|replace('-', '') == '' %}
+-
+{% else %}
+{%- for talent in team.talents %}
+{{ talent }}
+{%- endfor -%}
+{% endif %}
+
+{% endif %}

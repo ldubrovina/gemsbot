@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  bot:
+    build: .
+    container_name: gowbot
+    restart: unless-stopped
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Для хранения данных SQLite
+      - ./data:/app/data # Для файлов конфигурации
+      - ./settings.json:/app/settings.json:ro
+      - ./settings_default.json:/app/settings_default.json:ro
+      # Для игровых ассетов
+      - ./game_assets:/app/game_assets:ro
+      # Для логов
+      - ./logs:/app/logs

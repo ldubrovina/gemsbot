@@ -1,0 +1,26 @@
+<T>__Grundlagen__</T>
+Das Kommando `{{ prefix }}tower` kann dazu genutzt werden, um für die aktuelle Gilde die Rollen im Turm der Verdammnis anzuzeigen.
+**Die Tower-Daten werden je Discord-Kanal verwaltet**.
+
+<T>__Daten Eintragen__</T>
+Um Daten zu speichern wird ebenfalls das Kommando `{{ prefix }}tower` verwendet. Dabei kann der Name der Rolle gekürzt verwendet werden:
+`{{ prefix }}tower 4 ii unlock`
+`{{ prefix }}tower 5 rare fi`
+Eine gesamte Etage kann in einem Rutsch eingetragen werden:
+`{{ prefix }}tower 6 armor fireball unlock haste`
+
+<T>__Daten Anzeigen__</T>
+Um den gesamten Turm anzuzeigen, einfach `{{ prefix }}tower` ohne weitere Parameter eingeben.
+Um eine Auswahl von Etagen anzuzeigen (von _niedrig_ bis _hoch_): `{{ prefix }}tower <niedrig>-<hoch>`, z.B. `{{ prefix }}tower 20-30`.
+
+<T>__Daten löschen__</T>
+Um den aktuellen Turm zu leeren, einfach ``{{ prefix }}towerclear` benutzen.
+
+<T>__Daten aus Taran's DoomMap importieren__</T>
+`{{ prefix }}tower taran <map name>`
+
+<T>__Konfiguration__</T>
+Die Konfiguration erfolgt mittels `{{ prefix }}towerconfig`.
+`{{ prefix }}towerconfig short true` für kurze Antworten auf Daten-Eintragungen.
+`{{ prefix }}towerconfig rooms iii iii,rare,green` um Aliase für die Räume zu setzen, die Komma-separiert angegeben werden.
+`{{ prefix }}towerconfig scrolls armor :shield:,Armor` um Rollen-Alias zu setzen. Der erste Wert wird für die Anzeige verwendet.

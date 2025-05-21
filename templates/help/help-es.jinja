@@ -1,0 +1,67 @@
+<T>**__Códigos de equipo__**</T>
+• __lo básico__: Sólo pongan los códigos de su equipo, por ejemplo: `[1075,6251,6699,6007,3010,3,1,1,1,3,1,1,14007]`. El robot responderá automáticamente con las tropas publicadas en el código. El código puede ser incrustado dentro de más texto, y no necesita estar solo.
+<T>**__Búsquedas__**:</T>
+• `{{ prefix }}troop <búsqueda>`, por ejemplo `{{ prefix }}troop rey duentrufa`.
+• `{{ prefix }}weapon <búsqueda>`, por ejemplo, `{{ prefix }}weapon tomo de esporas`.
+• `{{ prefix }}pet <buscar>`, por ejemplo, `{{ prefix }}pet príncipe sapo`.
+• `{{ prefix }}class <búsqueda>`, por ejemplo: `{{ prefix }}clase señor de la guerra`.
+• `{{ prefix }}kingdom <búsqueda>`, por ejemplo: `{{ prefix }}kingdom aguja rota`.
+• `{{ prefix }}talent <búsqueda>`, por ejemplo: `{{ prefix }}talent fuente de mana`.
+• `{{ prefix }}trait <búsqueda>`, por ejemplo: `{{ prefix }}trait impermeable`.
+• `{{ prefix }}affix <búsqueda>`, por ejemplo: `{{ prefix }}affix polvo`.
+• `{{ prefix }}traitstone <buscar>`, por ejemplo. `{{ prefix }}traitstone escudo`.
+<T>**__Reglas de búsqueda__**:</T>
+• Busca en ambas obras identificaciones y partes de sus nombres.
+• La búsqueda no distingue entre mayúsculas y minúsculas.
+• Los espacios, apóstrofes (') y guiones (-) serán ignorados.
+• Los resultados múltiples mostrarán una lista de tropas coincidentes.
+• Si se encuentra un elemento coincidente, el color del lado reflejará la rareza de la tropa.
+<T>**__Resúmenes (1/2)__**:</T>
+• Spoilers: `{{ prefix }}spoilers`. Puede ser filtrado con los siguientes parámetros: `pets`, `troops`, `weapons`, `kingdoms`, `events`: `{{ prefix }}spoilers weapons`.
+• Eventos: `{{ prefix }}events`. Se puede utilizar con un filtro, por ejemplo, `{{ prefix }}events faction`. También se puede utilizar para mostrar sólo los reinos de eventos: `{{ prefix }}event kingdoms`.
+• Detalles del evento de la semana actual: `{{ prefix }}current_event`.
+• Tablón de Aventuras actual: `{{ prefix }}adventures`.
+• Requisitos de XP de clase: `{{ prefix }}class_level <target level>`, por ejemplo, `{{ prefix }}class_level 70`. Se puede utilizar con un nivel inferior para mostrar la diferencia, por ejemplo, `{{ prefix }}class_level 70-100`.
+• Resumen semanal de la campaña: `{{ prefix }}campaign`. Puede ser filtrado con `bronze`, `silver` u `gold`: `{{ prefix }}campaign silver`.
+<T>**__Resúmenes (2/2)__**:</T>
+• Resumen de la clase: `{{ prefix }}class summary`
+• Visión general del Reino: `{{ prefix }}kingdom summary`
+• Artículos artesanales de Soulforge: `{{ prefix }}soulforge`
+• Beneficios a nivel de jugador: `{{ prefix }}levels`
+• Reinos por colores de tropa: `{{ prefix }}color_kingdoms`
+• Reinos por tipos de tropas: `{{ prefix }}troop_type_kingdoms`
+• Cofre ratios de salida `{{ prefix }}drop_rates`
+• Effectos `{{ prefix }}effects`
+<T>**__La Torre de la Perdición__**:</T>
+Por favor, consulte `{{ prefix }}towerhelp`.
+<T>**__Rescate de mascotas__**:</T>
+• ¡Cuando te encuentres con una misión de rescate de mascotas en el juego, puedes alertar a todos tus compañeros de gremio con! `{{ prefix }}pet rescue <pequeña> [<hora>] [<mención>]`. `<pequeña>` debe ser el nombre o la identificación de la mascota, <time> es el tiempo restante en minutos (predeterminado 59), seguido de nada, "min" o "mins", y <mention> es el grupo que será alertado (predeterminado `@everyone`).
+• La configuración predeterminada se puede verificar con `{{ prefix }}pet rescue config`.
+• This command can be shortened up by using `{{ prefix }}pr ...` instead of `{{ prefix }}pet rescue`.
+• Los administradores del servidor pueden modificar la mención predeterminada, así como el comportamiento de eliminación con `{{ prefix }}pet rescue config <configuración> = <valor>`.
+<T>**__Marcadores del equipo__**:</T>
+• ID de marcador: `{{ prefix }}bookmarks`.
+• Mostrar un determinado marcador: `{{ prefix }}bookmark <ID de marcador>`.
+• Crear un nuevo marcador: {{ prefix }}bookmark <descripción> <código de equipo>`. Se creará un nuevo id de marcador aleatorio.
+• Eliminar un marcador: {{ prefix }}bookmark delete <ID de marcador>`.
+<T>**__Toplists__**:</T>
+• Mostrar mis propias toplists: `{{ prefix }}toplists`.
+• Crear una nueva toplist: `{{ prefix }}toplist <descripción> <tropas>`. Las tropas son una lista de nombres o identificadores de tropas separados por comas. Se creará un nuevo id de toplist.
+• Añada más tropas a una lista superior existente: `{{ prefix }}toplist append <id de lista> <tropas>`.
+• Modificar una lista de favoritos: `{{ prefix }}toplist update <id de lista> <descripción> <tropas>`.
+• Eliminar una lista principal: `{{ prefix }}toplist delete <id de lista>`.
+<T>**__Modificadores de Comando__**:</T>
+• __Traducción__: Todos los idiomas de GoW están soportados, pon las dos letras del código del país (en, fr, de, ru, it, es, zh) delante del comando, por ejemplo `es{{ prefix }}troop rey duentrufa`. Esto funciona igual para los códigos de equipo. **Las búsquedas localizadas sólo buscarán los nombres de las tropas con sus respectivas traducciones**.',
+• __Salida acortada__: Ponga un "-" delante de cualquier comando para que aparezca en formato condensado, por ejemplo `-[1075,6251,6699,6007]`, o con el lenguaje `es-[1075,6251,6699,6007]`. **Nota que el modificador de lenguaje siempre va primero.**
+<T>**__Comandos específicos del robot__**:</T>
+• Verifique los permisos del bot dentro de un canal: `{{ prefix }}permissions`
+• Muestra la versión del bot, el tiempo de ejecución, el tiempo de actividad, el código de invitación y más: `{{ prefix }}about`
+• Consigue unos gofres de motivación al azar: `{{ prefix }}waffles`
+• Ayuda corta: introduzca `{{ prefix }}quickhelp` para abrir un breve resumen de todos los comandos.
+<T>**__Administre los comandos__**:</T>
+Los comandos administrativos sólo pueden ser emitidos por el propietario del servidor, un miembro con acceso de administración concedido o los usuarios de un grupo llamado "admin".
+• __Prefix__: introduzca `{{ prefix }}prefix <nuevo_prefijo>` para establecer un nuevo prefijo. Sólo el propietario del servidor puede hacer eso.
+• __Noticias__: Suscríbete a las noticias con `{{ prefix }}news subscribe pc` o `{{ prefix }}news subscribe switch` para suscribirse a cualquiera de las dos noticias. Compruebe el estado con `{{ prefix }}news`.
+• __Lenguaje por defecto__: Cambie el idioma por defecto de su servidor con `{{ prefix }}lang <lang>`, por ejemplo `{{ prefix }}lang es` (vea arriba los códigos de idiomas válidos).
+
+Esta traducción de la comunidad ha sido proporcionada por Raven1755.
