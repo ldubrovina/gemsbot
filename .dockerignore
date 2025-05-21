@@ -9,6 +9,13 @@ __pycache__/
 *.so
 .Python
 env/
+venv/
+
+# Игнорируем все .json файлы, кроме тех, что в game_assets
+*.json
+!game_assets/*.json
+!settings.json
+!settings_default.json
 build/
 develop-eggs/
 dist/
