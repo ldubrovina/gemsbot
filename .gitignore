@@ -5,7 +5,11 @@ __pycache__
 .idea
 .env
 **/*.dat
-**/*.json
 *.sqlite3
 /fonts/
 /.cache/
+
+# Разрешаем определенные JSON файлы
+!game_assets/*.json
+!settings.json
+!settings_default.json

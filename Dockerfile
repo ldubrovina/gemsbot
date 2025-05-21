@@ -1,12 +1,18 @@
 # Этап сборки
-FROM python:3.12.3-slim-bookworm as builder
+FROM python:3.12.3-slim-bookworm AS builder
+
+# Настройка DNS и зеркал apt для более стабильной работы
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
+  echo "nameserver 8.8.4.4" >> /etc/resolv.conf && \
+  echo "deb http://mirror.yandex.ru/debian/ bookworm main contrib non-free" > /etc/apt/sources.list && \
+  echo "deb http://mirror.yandex.ru/debian-security/ bookworm-security main contrib non-free" >> /etc/apt/sources.list
 
 # Установка build-time зависимостей
-RUN apt-get update -y --fix-missing && \
+RUN apt-get update -y && \
   apt-get install -y --no-install-recommends \
   gcc \
-  python3-dev \
-  && rm -rf /var/lib/apt/lists/*
+  python3-dev && \
+  rm -rf /var/lib/apt/lists/*
 
 # Создание и активация виртуального окружения
 RUN python -m venv /opt/venv
@@ -23,14 +29,23 @@ FROM python:3.12.3-slim-bookworm
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Установка системных зависимостей
-RUN apt-get update -y --fix-missing && \
+# Настройка DNS и зеркал apt для более стабильной работы
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
+  echo "nameserver 8.8.4.4" >> /etc/resolv.conf && \
+  echo "deb http://mirror.yandex.ru/debian/ bookworm main contrib non-free" > /etc/apt/sources.list && \
+  echo "deb http://mirror.yandex.ru/debian-security/ bookworm-security main contrib non-free" >> /etc/apt/sources.list
+
+# Установка системных зависимостей с повторными попытками
+RUN for i in $(seq 1 3); do \
+  apt-get update -y && \
   apt-get install -y --no-install-recommends \
   ca-certificates \
   curl \
   imagemagick \
   libmagickwand-dev && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* && break || \
+  if [ $i -lt 3 ]; then sleep 5; fi; \
+  done
 
 # Настройка политик ImageMagick
 RUN mkdir -p /etc/ImageMagick-6 && \
